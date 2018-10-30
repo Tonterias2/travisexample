@@ -1,0 +1,20 @@
+version: '2'
+services:
+    jhipsterpress09-app:
+        image: jhipsterpress09
+        environment:
+            - _JAVA_OPTIONS=-Xmx512m -Xms256m
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://jhipsterpress09-postgresql:5432/jhipsterpress09
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_JEST_URI=http://jhipsterpress09-elasticsearch:9200
+        ports:
+            - 8080:8080
+    jhipsterpress09-postgresql:
+        extends:
+            file: postgresql.yml
+            service: jhipsterpress09-postgresql
+    jhipsterpress09-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: jhipsterpress09-elasticsearch
